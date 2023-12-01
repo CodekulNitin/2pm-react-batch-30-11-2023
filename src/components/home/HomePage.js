@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import CompanyImage from "../common/assets/abc.png";
 import IncImage from "../common/assets/IncImage.png";
 import FastTagImage from "../common/assets/FastageImage.png";
 import ElapisImage from "../common/assets/ElispseImage.png";
+import Modal from "./Modal";
 
 const dummyArr = [
   {
@@ -53,6 +54,35 @@ const cardData = [
 ];
 
 function HomePage() {
+  const [data, setData] = React.useState(0);
+  const [tempArr, setTempArr] = React.useState({
+    name: "abc",
+    address: "lorem",
+    id: 1,
+  });
+  const [cardTempData, setCardTempDate] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+
+  const incrementCounter = () => {
+    setData(data + 1);
+    // setTempArr(tempArr.name = "codekul")
+    setTempArr((previousState) => {
+      return { ...previousState, name: "codekul" };
+    });
+  };
+
+  const decrementCounter = () => {
+    setData(data - 1);
+  };
+
+  const apiData = () => {
+    let tempArr = [...cardTempData];
+    tempArr = cardData;
+    setCardTempDate(tempArr);
+  };
+
+  console.log("data", data, tempArr);
+  console.log("cardTempData", cardTempData);
   return (
     <div className="px-5 md:px-12">
       <div className="pt-20  bg-[url('https://uploads-ssl.webflow.com/631f9b7b3a2f7a42f4ff5280/6320c6e2297b480e45fe9561_Grad-2.svg')] text-center pb-5">
@@ -107,6 +137,43 @@ function HomePage() {
           })}
         </div>
       </div>
+
+      {Number(data) > 0 ? (
+        <button
+          type="button"
+          className="border rounded bg-indigo-900 text-white p-2"
+          onClick={decrementCounter}
+        >
+          Decrement
+        </button>
+      ) : (
+        ""
+      )}
+      <button
+        type="button"
+        className="border rounded bg-indigo-900 text-white p-2"
+        onClick={() => {
+          apiData();
+          incrementCounter();
+        }}
+      >
+        Increment
+      </button>
+      <div className="flex space-x-2 border">
+        <h1>{tempArr.name}</h1>
+        <h1> {Number(data) > 0 ? <h1>{data} </h1> : ""}</h1>
+      </div>
+      <button
+        onClick={() => {
+          setOpenModal(true);
+        }}
+      >
+        Open Modal
+      </button>
+      {openModal? (
+        <Modal data={cardTempData} />
+
+      ):""}
     </div>
   );
 }
