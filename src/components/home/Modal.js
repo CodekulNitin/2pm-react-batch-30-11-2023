@@ -6,7 +6,14 @@ function Modal(props) {
 
   return (
     <div className="border rounded h-[300px] w-[70%] p-3">
-      <button className="border rounded p-1">X</button>
+      <button
+        className="border rounded p-1"
+        onClick={() => {
+          props.setOpenModal(false);
+        }}
+      >
+        X
+      </button>
       {props.data.map((cardName) => {
         return (
           <div className="shadow p-3 border rounded-xl bg-white ">

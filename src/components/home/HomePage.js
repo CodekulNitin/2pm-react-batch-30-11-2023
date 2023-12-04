@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CompanyImage from "../common/assets/abc.png";
 import IncImage from "../common/assets/IncImage.png";
 import FastTagImage from "../common/assets/FastageImage.png";
@@ -80,6 +80,20 @@ function HomePage() {
     tempArr = cardData;
     setCardTempDate(tempArr);
   };
+
+  useEffect(() => {
+    let tempArr1 = [];
+    if (tempArr.name === "codekul") {
+      const result = cardData.filter((e) => e.id === 2);
+      for (let i = 0; i < result.length; i++) {
+        let obj = {};
+        obj.cardName = "abc"
+        obj.id=result[i].id
+        tempArr1.push(obj);
+      }
+    }
+    console.log("tempArrtempArr", tempArr1);
+  }, [tempArr]);
 
   console.log("data", data, tempArr);
   console.log("cardTempData", cardTempData);
@@ -170,10 +184,11 @@ function HomePage() {
       >
         Open Modal
       </button>
-      {openModal? (
-        <Modal data={cardTempData} />
-
-      ):""}
+      {openModal ? (
+        <Modal data={cardTempData} setOpenModal={setOpenModal} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }
