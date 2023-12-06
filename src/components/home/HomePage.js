@@ -5,7 +5,13 @@ import FastTagImage from "../common/assets/FastageImage.png";
 import ElapisImage from "../common/assets/ElispseImage.png";
 import Modal from "./Modal";
 import TestFile from "./TestFile";
-
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 const dummyArr = [
   {
     companyName: FastTagImage,
@@ -80,7 +86,7 @@ function HomePage() {
     let tempArr = [...cardTempData];
     tempArr = cardData;
     setCardTempDate(tempArr);
-  };  
+  };
 
   console.log("data", data, tempArr);
   console.log("cardTempData", cardTempData);
@@ -172,11 +178,47 @@ function HomePage() {
         Open Modal
       </button>
       {openModal ? (
-        <Modal data={cardTempData} setOpenModal={setOpenModal} />
+        <Modal
+          data={cardTempData}
+          open={openModal}
+          setOpenModal={setOpenModal}
+        />
       ) : (
         ""
       )}
-      <TestFile />
+
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Actions</TableCell>
+                <TableCell>Item Name</TableCell>
+                <TableCell>Item Code</TableCell>
+                <TableCell>Status</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {cardData.map((column) => {
+                return (
+                  <TableRow hover tabIndex={-1}>
+                    <TableCell>edit delete</TableCell>
+                    <TableCell key={column.id} align={column.align}>
+                      {column.cardName}
+                    </TableCell>
+                    <TableCell key={column.id} align={column.align}>
+                      {column.description}
+                    </TableCell>
+                    <TableCell key={column.id} align={column.align}>
+                      {column.cardName}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
     </div>
   );
 }
