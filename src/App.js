@@ -1,14 +1,13 @@
 import "./App.css";
-import HomePage from "./components/home/HomePage"; //import 
-import Navbar from './components/navbar/Navbar'
+import ItemCreation from "./components/testfile/ItemCreation";
 
 function App() {
   return (
     <div className="App bg-[#F8F2E8]">
       {/* export  */}
-      <Navbar />
-      <HomePage /> 
-
+      {/* <Navbar />
+      <HomePage />  */}
+      <ItemCreation />
     </div>
   );
 }

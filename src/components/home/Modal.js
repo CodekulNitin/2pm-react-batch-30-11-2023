@@ -24,13 +24,14 @@ export default function BasicModal(props) {
   console.log("itemNameValue", finalData);
 
   const handleSubmit = () => {
-    let tempArr = [...props.inalData];
+    let tempArr = [...finalData];
     let obj = {
       itemName: itemNameValue,
     };
     tempArr.push(obj);
-    props.setFinalData(tempArr);
+    setFinalData(tempArr);
     setItemNameValue("");
+    handleClose()
   };
 
   return (
