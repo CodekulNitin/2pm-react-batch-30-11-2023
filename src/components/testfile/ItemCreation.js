@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import AddItemCreationModal from "./AddItemCreationModal";
 
 function ItemCreation() {
-  const [itemData, setItemData] = useState([]);
+  const [tableData, setTableData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
@@ -38,28 +38,46 @@ function ItemCreation() {
           + Add
         </button>
       </div>
-      <div>
-        {itemData.length > 0 ? (
+      <div className="mt-2">
+        {tableData.length > 0 ? (
           <Paper sx={{ width: "100%", overflow: "hidden" }}>
             <TableContainer sx={{ maxHeight: 440 }}>
-              <Table stickyHeader aria-label="sticky table">
+              <Table stickyHeader aria-label="sticky table" size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Actions</TableCell>
-                    <TableCell>Item Name</TableCell>
-                    <TableCell>Item Code</TableCell>
-                    <TableCell>Status</TableCell>
+                    <TableCell style={{ backgroundColor: "lightgray" }}>
+                      Actions
+                    </TableCell>
+                    <TableCell style={{ backgroundColor: "lightgray" }}>
+                      Item Name
+                    </TableCell>
+                    <TableCell style={{ backgroundColor: "lightgray" }}>
+                      Item Code
+                    </TableCell>
+                    <TableCell style={{ backgroundColor: "lightgray" }}>
+                      Status
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* {columns.map((column) => {
-             const value = row[column.id];
-             return ( */}
-                  <TableRow hover tabIndex={-1}>
-                    <TableCell></TableCell>
-                  </TableRow>
-                  {/* );
-           })} */}
+                  {tableData.map((item) => {
+                    return (
+                      <TableRow hover tabIndex={-1}>
+                        <TableCell>edit delete</TableCell>
+
+                        <TableCell>{item["Item Name"]}</TableCell>
+                        <TableCell>{item["Item Code"]}</TableCell>
+
+                        <TableCell>
+                          {item.Status === true ? (
+                            <h1>Active</h1>
+                          ) : (
+                            <h1>InActive</h1>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -71,6 +89,8 @@ function ItemCreation() {
       <AddItemCreationModal
         handleOpenModal={openModal}
         handleCloseModal={handleCloseModal}
+        data={tableData}
+        setData={setTableData}
       />
     </div>
   );
