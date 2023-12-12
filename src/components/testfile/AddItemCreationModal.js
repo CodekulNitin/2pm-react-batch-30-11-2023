@@ -1,8 +1,9 @@
+import CloseIcon from "@mui/icons-material/Close";
+import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import * as React from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import { Checkbox, FormControlLabel, TextField } from "@mui/material";
+import { useEffect } from "react";
 const style = {
   position: "absolute",
   top: "50%",
@@ -24,17 +25,35 @@ export default function BasicModal(props) {
   console.log("itemName", itemName);
   const handleAddData = () => {
     let tempArr = [...props.data];
-    let obj = {
-      "Item Name": itemName,
-      "Item Code": itemCode,
-      Status: status,
-    };
-    tempArr.push(obj)
-    console.log(tempArr);
-    props.setData(tempArr)
-    setItemName("")
-    props.handleCloseModal()
+    if(props.editRow === null){
+      let obj = {
+        "Item Name": itemName,
+        "Item Code": itemCode,
+        Status: status,
+      };
+      tempArr.push(obj);
+      console.log(tempArr);
+      props.setData(tempArr);
+    }else{
+      // update 
+
+      
+    }
+    setItemName("");
+    setItemCode("");
+    setStatus(true);
+    props.handleCloseModal();
   };
+  console.log("editedRow", props.editRow);
+
+  useEffect(() => {
+    if (props.editRow !== null) {
+      setItemName(props.editRow["Item Name"]);
+      setItemCode(props.editRow["Item Code"]);
+      setStatus(props.editRow.Status);
+    }
+  }, [props.editRow, itemName]);
+
   return (
     <div>
       <Modal
@@ -49,7 +68,10 @@ export default function BasicModal(props) {
             <button
               type="button"
               className="border border-red-600 text-red-600 rounded"
-              onClick={props.handleCloseModal}
+              onClick={() => {
+                props.handleCloseModal();
+                props.setEditRow(null);
+              }}
             >
               <CloseIcon />
             </button>
@@ -64,9 +86,25 @@ export default function BasicModal(props) {
                 setItemName(event.target.value);
               }}
             />
-            <TextField fullWidth size="small" label="Item Code" />
+            <TextField
+              fullWidth
+              size="small"
+              defaultValue={itemCode}
+              label="Item Code"
+              onChange={(event) => {
+                setItemCode(event.target.value);
+              }}
+            />
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
+              control={
+                <Checkbox
+                  defaultChecked={status}
+                  onChange={(e) => {
+                    console.log("checkboxvalue", e.target.checked);
+                    setStatus(e.target.checked);
+                  }}
+                />
+              }
               label="Active"
             />
           </div>
@@ -76,7 +114,7 @@ export default function BasicModal(props) {
               type="button"
               onClick={handleAddData}
             >
-              Save
+              {props.editRow === null ? <span>Save</span> : <span>Update</span>}
             </button>
           </div>
         </Box>

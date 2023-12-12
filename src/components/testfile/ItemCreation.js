@@ -13,6 +13,7 @@ import AddItemCreationModal from "./AddItemCreationModal";
 function ItemCreation() {
   const [tableData, setTableData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [editRow, setEditRow] = useState(null);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
   return (
@@ -33,7 +34,9 @@ function ItemCreation() {
         </div>
         <button
           className="bg-indigo-900 text-white p-2 rounded whitespace-nowrap"
-          onClick={handleOpenModal}
+          onClick={()=>{handleOpenModal()
+          setEditRow(null)
+          }}
         >
           + Add
         </button>
@@ -63,16 +66,34 @@ function ItemCreation() {
                   {tableData.map((item) => {
                     return (
                       <TableRow hover tabIndex={-1}>
-                        <TableCell>edit delete</TableCell>
+                        <TableCell>
+                          <div className="flex space-x-2 items-center">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                console.log("Selected Row", item);
+                                setEditRow(item)
+                                setOpenModal(true)
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button>Delete</button>
+                          </div>
+                        </TableCell>
 
                         <TableCell>{item["Item Name"]}</TableCell>
                         <TableCell>{item["Item Code"]}</TableCell>
 
                         <TableCell>
                           {item.Status === true ? (
-                            <h1>Active</h1>
+                            <h1 className="border border-green-600 text-green-600 w-3/12 text-center rounded">
+                              Active
+                            </h1>
                           ) : (
-                            <h1>InActive</h1>
+                            <h1 className="border border-red-600 text-red-600 w-[27%] text-center rounded">
+                              InActive
+                            </h1>
                           )}
                         </TableCell>
                       </TableRow>
@@ -91,6 +112,8 @@ function ItemCreation() {
         handleCloseModal={handleCloseModal}
         data={tableData}
         setData={setTableData}
+        editRow={editRow}
+        setEditRow={setEditRow}
       />
     </div>
   );
