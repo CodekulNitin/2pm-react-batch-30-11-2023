@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import * as React from "react";
 import { useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -11,49 +13,41 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 700,
   bgcolor: "background.paper",
-  //   border: '2px solid #000',
-
   boxShadow: 24,
   p: 2,
 };
 
 export default function BasicModal(props) {
-  const [itemName, setItemName] = React.useState("");
-  const [itemCode, setItemCode] = React.useState("");
-  const [status, setStatus] = React.useState(true);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    trigger,
+    setValue,
+    control,
+    formState: { errors },
+  } = useForm();
 
-  console.log("itemName", itemName);
-  const handleAddData = () => {
+  const handleAddData = (dataObj) => {
     let tempArr = [...props.data];
-    if(props.editRow === null){
-      let obj = {
-        "Item Name": itemName,
-        "Item Code": itemCode,
-        Status: status,
-      };
-      tempArr.push(obj);
-      console.log(tempArr);
-      props.setData(tempArr);
-    }else{
-      // update 
-
-      
-    }
-    setItemName("");
-    setItemCode("");
-    setStatus(true);
+    tempArr.push(dataObj);
+    props.setData(tempArr);
     props.handleCloseModal();
+    reset();
   };
   console.log("editedRow", props.editRow);
 
   useEffect(() => {
     if (props.editRow !== null) {
-      setItemName(props.editRow["Item Name"]);
-      setItemCode(props.editRow["Item Code"]);
-      setStatus(props.editRow.Status);
+      setValue("Item Name", props.editRow["Item Name"]);
+      setValue("Item Code", props.editRow["Item Code"]);
+      setValue("Status", props.editRow["Status"]);
     }
-  }, [props.editRow, itemName]);
+  }, [props.editRow]);
 
+  console.log("props.editRow", props.editRow);
+  
   return (
     <div>
       <Modal
@@ -71,52 +65,43 @@ export default function BasicModal(props) {
               onClick={() => {
                 props.handleCloseModal();
                 props.setEditRow(null);
+                reset();
               }}
             >
               <CloseIcon />
             </button>
           </div>
-          <div className="flex space-x-2 mt-4">
-            <TextField
-              fullWidth
-              size="small"
-              label="Item Name"
-              defaultValue={itemName}
-              onChange={(event) => {
-                setItemName(event.target.value);
-              }}
-            />
-            <TextField
-              fullWidth
-              size="small"
-              defaultValue={itemCode}
-              label="Item Code"
-              onChange={(event) => {
-                setItemCode(event.target.value);
-              }}
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  defaultChecked={status}
-                  onChange={(e) => {
-                    console.log("checkboxvalue", e.target.checked);
-                    setStatus(e.target.checked);
-                  }}
-                />
-              }
-              label="Active"
-            />
-          </div>
-          <div className="mt-1 text-end">
-            <button
-              className="bg-green-600 text-white rounded p-2"
-              type="button"
-              onClick={handleAddData}
-            >
-              {props.editRow === null ? <span>Save</span> : <span>Update</span>}
-            </button>
-          </div>
+          <form onSubmit={handleSubmit(handleAddData)}>
+            <div className="flex space-x-2 mt-4">
+              <TextField
+                fullWidth
+                size="small"
+                label="Item Name"
+                name="Item Name"
+                {...register("Item Name")}
+              />
+              <TextField
+                fullWidth
+                size="small"
+                name="Item Name"
+                label="Item Code"
+                {...register("Item Code")}
+              />
+              <input type="checkbox" name="Status" {...register("Status")} />
+            </div>
+            <div className="mt-1 text-end">
+              <button
+                className="bg-green-600 text-white rounded p-2"
+                type="submit"
+              >
+                {props.editRow === null ? (
+                  <span>Save</span>
+                ) : (
+                  <span>Update</span>
+                )}
+              </button>
+            </div>
+          </form>
         </Box>
       </Modal>
     </div>

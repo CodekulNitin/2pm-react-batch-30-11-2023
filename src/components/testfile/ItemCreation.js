@@ -16,6 +16,8 @@ function ItemCreation() {
   const [editRow, setEditRow] = useState(null);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
+
+
   return (
     <div className="p-10">
       <div className="flex justify-between items-center space-x-2">
@@ -63,7 +65,7 @@ function ItemCreation() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {tableData.map((item) => {
+                  {tableData.map((item,index) => {
                     return (
                       <TableRow hover tabIndex={-1}>
                         <TableCell>
