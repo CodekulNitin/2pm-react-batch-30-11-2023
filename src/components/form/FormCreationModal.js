@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const style = {
@@ -43,12 +43,23 @@ function FormCreationModal(props) {
   const onSubmit = (data) => {
     console.log("datais", data);
     let tempArr = [...props.data];
-    tempArr.push(data);
-    props.setData(tempArr);
-    reset(defaultValue);
-    setValue("First Name","abc")
+    if (props.editRow !== null) {
+      let requiredFilter = props.data.filter(function (e) {
+        return e["First Name"] ===  props.editRow["First Name"];
+    });
+    console.log("filteris",requiredFilter);
+    } else {
+      tempArr.push(data);
+      props.setData(tempArr);
+      reset(defaultValue);
+    }
   };
-
+  useEffect(() => {
+    if (props.editRow !== null) {
+      setValue("First Name", props.editRow["First Name"]);
+      setValue("Last Name", props.editRow["Last Name"]);
+    }
+  }, [props.editRow]);
   return (
     <div>
       <Modal
@@ -60,7 +71,9 @@ function FormCreationModal(props) {
         <Box sx={style} className="w-[80%] h-[40%]">
           <div className="flex justify-between">
             <h1>User</h1>
-            <button type="button" onClick={props.handleCloseFormCreationModal}>
+            <button type="button" onClick={()=>{props.handleCloseFormCreationModal()
+            props.setEditRow(null)
+            }}>
               <CancelIcon className="text-red-600" />
             </button>
           </div>

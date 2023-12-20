@@ -30,6 +30,7 @@ function FormListing() {
   const [openFormCreationModal, setOpenFormCreationModal] = useState(false);
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
+  const [editRow, setEditRow] = useState(null);
   const handleCloseFormCreationModal = () => setOpenFormCreationModal(false);
   console.log("deleteIndex", deleteIndex);
 
@@ -84,7 +85,14 @@ function FormListing() {
                   <TableRow hover key={column.id}>
                     <TableCell>
                       <div className="flex space-x-3 ">
-                        <button>Edit</button>
+                        <button
+                          onClick={() => {
+                            setEditRow(column);
+                            setOpenFormCreationModal(true)
+                          }}
+                        >
+                          Edit
+                        </button>
                         <button
                           type="button"
                           onClick={() => {
@@ -112,6 +120,8 @@ function FormListing() {
           handleCloseFormCreationModal={handleCloseFormCreationModal}
           data={tableData}
           setData={setTableData}
+          editRow={editRow}
+          setEditRow={setEditRow}
         />
       ) : null}
 
