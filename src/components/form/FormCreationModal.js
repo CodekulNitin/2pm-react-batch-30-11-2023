@@ -44,14 +44,20 @@ function FormCreationModal(props) {
     console.log("datais", data);
     let tempArr = [...props.data];
     if (props.editRow !== null) {
-      let requiredFilter = props.data.filter(function (e) {
-        return e["First Name"] ===  props.editRow["First Name"];
-    });
-    console.log("filteris",requiredFilter);
+      const indexToUpdate = tempArr.findIndex(
+        (e) => e["First Name"] === props.editRow["First Name"]  
+      );
+      if (indexToUpdate !== -1) {
+        tempArr[indexToUpdate] = data;
+        props.setData(tempArr);
+        reset(defaultValue);
+      }
+      console.log("filteris", indexToUpdate);
     } else {
       tempArr.push(data);
       props.setData(tempArr);
       reset(defaultValue);
+      props.handleCloseFormCreationModal()
     }
   };
   useEffect(() => {
@@ -71,9 +77,13 @@ function FormCreationModal(props) {
         <Box sx={style} className="w-[80%] h-[40%]">
           <div className="flex justify-between">
             <h1>User</h1>
-            <button type="button" onClick={()=>{props.handleCloseFormCreationModal()
-            props.setEditRow(null)
-            }}>
+            <button
+              type="button"
+              onClick={() => {
+                props.handleCloseFormCreationModal();
+                props.setEditRow(null);
+              }}
+            >
               <CancelIcon className="text-red-600" />
             </button>
           </div>

@@ -43,6 +43,7 @@ function FormListing() {
       setDeleteIndex(null);
     }
   };
+  console.log("tableData",tableData[1]);
   return (
     <>
       <div className="p-5 flex justify-between items-center w-full">

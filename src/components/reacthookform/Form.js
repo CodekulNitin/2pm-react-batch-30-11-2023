@@ -8,6 +8,19 @@ export default function Form() {
   const onSubmit = (dataobj) => {
     console.log("DataObj", dataobj);
   };
+  function handleAddTodo(event) {
+    event.preventDefault();
+    const text = event.target?.elements?.firstName?.value;
+    const todo = {
+      id: 4,
+      text,
+      done: false,
+    };
+    console.log("todo", todo);
+    // setTodos((prevTodos) => {
+    //   return prevTodos.concat(todo);
+    // });
+  }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="p-10 grid gap-2 w-5/12">
@@ -21,6 +34,10 @@ export default function Form() {
         </Button>
       </div>
       {firstNameValue}
+      <form onSubmit={handleAddTodo}>
+        <TextField type="text" name="firstName" />
+        <button type="submit">Submit</button>
+      </form>
     </form>
   );
 }
