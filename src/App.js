@@ -1,9 +1,13 @@
+import { createContext } from "react";
 import "./App.css";
 import FormListing from "./components/form/FormListing";
 import DataPassingUsingProps from "./components/props/DataPassingUsingProps";
 import Form from "./components/reacthookform/Form";
 import HookFormExample from "./components/testfile/HookFormExample";
 import ItemCreation from "./components/testfile/ItemCreation";
+import MyContext from "./components/contextapi/MyContext";
+import { NewContext } from "./components/contextapi/NewContext";
+import StepperForm from "./components/stepper/StepperForm";
 
 const cardInformation = [
   {
@@ -39,6 +43,11 @@ const cardInformation = [
 function App() {
   return (
     <div className="App">
+      <NewContext.Provider value={cardInformation}>
+        {/* <DataPassingUsingProps /> */}
+        {/* <MyContext /> */}
+        <StepperForm />
+      </NewContext.Provider>
       {/* export  */}
       {/* <Navbar />
       <HomePage />  */}
@@ -46,7 +55,6 @@ function App() {
       {/* <HookFormExample /> */}
       {/* <FormListing /> */}
       {/* <Form /> */}
-      <DataPassingUsingProps cardInfo={cardInformation} />
     </div>
   );
 }
