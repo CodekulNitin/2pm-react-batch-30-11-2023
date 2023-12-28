@@ -59,11 +59,6 @@ export default function StepperForm() {
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography variant="caption">Optional</Typography>
-            );
-          }
           if (isStepSkipped(index)) {
             stepProps.completed = false;
           }
@@ -87,11 +82,11 @@ export default function StepperForm() {
       ) : (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
-            {activeStep+1 === 1 ? (
+            {activeStep + 1 === 1 ? (
               <BasicInfo />
-            ) : activeStep+1 === 2 ? (
+            ) : activeStep + 1 === 2 ? (
               <PersonalInfo />
-            ) : activeStep+1 === 3 ? (
+            ) : activeStep + 1 === 3 ? (
               <FInalForm />
             ) : (
               ""
@@ -107,11 +102,6 @@ export default function StepperForm() {
               Back
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
-            {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
-              </Button>
-            )}
 
             <Button onClick={handleNext}>
               {activeStep === steps.length - 1 ? "Finish" : "Next"}

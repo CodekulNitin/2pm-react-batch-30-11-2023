@@ -2,13 +2,21 @@ import React, { useContext } from "react";
 import { NewContext } from "./NewContext";
 
 function MyContext() {
-  const cardData = useContext(NewContext);
-  console.log("cardData", cardData);
+  const { text, setText } = useContext(NewContext);
+  console.log("cardData", text);
   return (
     <div>
-      {cardData.map((value) => {
+      <button
+        type="button"
+        onClick={() => {
+          setText("Abc");
+        }}
+      >
+        Show Text
+      </button>
+      {/* {cardData.map((value) => {
         return <>{value.CardName}</>;
-      })}
+      })} */}
     </div>
   );
 }

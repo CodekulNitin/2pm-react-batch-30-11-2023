@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import "./App.css";
 import FormListing from "./components/form/FormListing";
 import DataPassingUsingProps from "./components/props/DataPassingUsingProps";
@@ -39,14 +39,15 @@ const cardInformation = [
     info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
   },
 ];
-
+//https://templates.envytheme.com/tinzer/default/index-2.html
 function App() {
+  const [text,setText]=useState("")
   return (
     <div className="App">
-      <NewContext.Provider value={cardInformation}>
-        {/* <DataPassingUsingProps /> */}
+      <NewContext.Provider value={{text,setText}}>
+        {/* {text} */}
         {/* <MyContext /> */}
-        <StepperForm />
+<StepperForm />
       </NewContext.Provider>
       {/* export  */}
       {/* <Navbar />
