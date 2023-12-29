@@ -1,13 +1,10 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
+import { Route, Router, Routes } from "react-router-dom";
 import "./App.css";
-import FormListing from "./components/form/FormListing";
-import DataPassingUsingProps from "./components/props/DataPassingUsingProps";
-import Form from "./components/reacthookform/Form";
-import HookFormExample from "./components/testfile/HookFormExample";
-import ItemCreation from "./components/testfile/ItemCreation";
-import MyContext from "./components/contextapi/MyContext";
-import { NewContext } from "./components/contextapi/NewContext";
-import StepperForm from "./components/stepper/StepperForm";
+import HomePage from "./components/home/HomePage";
+import Navbar from "./components/router/Navbar";
+import About from "./components/router/About";
+import ContactUs from "./components/router/ContactUs";
 
 const cardInformation = [
   {
@@ -41,22 +38,16 @@ const cardInformation = [
 ];
 //https://templates.envytheme.com/tinzer/default/index-2.html
 function App() {
-  const [text,setText]=useState("")
+  const [text, setText] = useState("");
   return (
-    <div className="App">
-      <NewContext.Provider value={{text,setText}}>
-        {/* {text} */}
-        {/* <MyContext /> */}
-<StepperForm />
-      </NewContext.Provider>
-      {/* export  */}
-      {/* <Navbar />
-      <HomePage />  */}
-      {/* <ItemCreation /> */}
-      {/* <HookFormExample /> */}
-      {/* <FormListing /> */}
-      {/* <Form /> */}
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<ContactUs />} />
+      </Routes>
+    </>
   );
 }
 

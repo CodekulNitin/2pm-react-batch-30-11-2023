@@ -12,6 +12,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { useLocation } from "react-router-dom";
 const dummyArr = [
   {
     companyName: FastTagImage,
@@ -69,6 +70,7 @@ function HomePage() {
   });
   const [cardTempData, setCardTempDate] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const location = useLocation()
 
   const incrementCounter = () => {
     setData(data + 1);
@@ -89,7 +91,7 @@ function HomePage() {
   };
 
   console.log("data", data, tempArr);
-  console.log("cardTempData", cardTempData);
+  console.log("location", location);
   return (
     <div className="px-5 md:px-12">
       <div className="pt-20  bg-[url('https://uploads-ssl.webflow.com/631f9b7b3a2f7a42f4ff5280/6320c6e2297b480e45fe9561_Grad-2.svg')] text-center pb-5">
