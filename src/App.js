@@ -5,6 +5,9 @@ import HomePage from "./components/home/HomePage";
 import Navbar from "./components/router/Navbar";
 import About from "./components/router/About";
 import ContactUs from "./components/router/ContactUs";
+import Products from "./components/router/Products";
+import NewProductsList from "./components/router/NewProductsList";
+import ProductList from "./components/router/ProductList";
 
 const cardInformation = [
   {
@@ -43,9 +46,14 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/">
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="products" element={<Products />}>
+            <Route path="newproductslist" element={<NewProductsList />} />
+            <Route path="productlist" element={<ProductList />} />
+          </Route>
+        </Route>
       </Routes>
     </>
   );
