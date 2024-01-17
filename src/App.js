@@ -7,7 +7,8 @@ import About from "./components/router/About";
 import ContactUs from "./components/router/ContactUs";
 import Products from "./components/router/Products";
 import NewProductsList from "./components/router/NewProductsList";
-import ProductList from "./components/router/ProductList";
+import ParentComponent from "./components/usecallback/ParentComponent";
+
 
 const cardInformation = [
   {
@@ -51,7 +52,7 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="products" element={<Products />}>
             <Route path="newproductslist" element={<NewProductsList />} />
-            <Route path="productlist" element={<ProductList />} />
+            <Route path="parentcomponent" element={<ParentComponent />} />
           </Route>
         </Route>
       </Routes>
