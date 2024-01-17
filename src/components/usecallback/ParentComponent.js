@@ -7,17 +7,17 @@ function ParentComponent() {
   const [count, setCount] = useState(0);
   const [salary, setSalary] = useState(5000);
 
-  const handleIncrementCount = () => {
+  const handleIncrementCount = useCallback(() => {
+    let i = 0;
     setCount(count + 1);
-  };
+  }, [count]);
 
-  const handleIncrementSalary = () => {
+  const handleIncrementSalary = useCallback(() => {
     setSalary(salary + 1000);
-  };
+  }, [salary]);
 
   const isEven = () => {
-    let i = 0;
-    return count % 2 === 0;
+    return count % 2===0;
   };
 
   return (
