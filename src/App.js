@@ -8,6 +8,8 @@ import ContactUs from "./components/router/ContactUs";
 import Products from "./components/router/Products";
 import NewProductsList from "./components/router/NewProductsList";
 import ParentComponent from "./components/usecallback/ParentComponent";
+import GetImagesFromLocalApi from "./components/axios/GetImagesFromLocalApi";
+import UseReducerHook from "./components/hooks/UseReducerHook";
 
 
 const cardInformation = [
@@ -46,16 +48,17 @@ function App() {
   return (
     <>
       <Navbar />
-      <Routes>
+      <UseReducerHook />
+      {/* <Routes>
         <Route path="/">
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<UseReducerHook />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="products" element={<Products />}>
             <Route path="newproductslist" element={<NewProductsList />} />
-            <Route path="parentcomponent" element={<ParentComponent />} />
+            <Route path="parentcomponent" element={<GetImagesFromLocalApi />} />
           </Route>
         </Route>
-      </Routes>
+      </Routes> */}
     </>
   );
 }

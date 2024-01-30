@@ -8,7 +8,6 @@ function ParentComponent() {
   const [salary, setSalary] = useState(5000);
 
   const handleIncrementCount = useCallback(() => {
-    let i = 0;
     setCount(count + 1);
   }, [count]);
 
