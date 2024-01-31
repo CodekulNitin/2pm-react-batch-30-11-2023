@@ -10,6 +10,7 @@ import NewProductsList from "./components/router/NewProductsList";
 import ParentComponent from "./components/usecallback/ParentComponent";
 import GetImagesFromLocalApi from "./components/axios/GetImagesFromLocalApi";
 import UseReducerHook from "./components/hooks/UseReducerHook";
+import Counter from "./components/hooks/Counter";
 
 
 const cardInformation = [
@@ -49,6 +50,7 @@ function App() {
     <>
       <Navbar />
       <UseReducerHook />
+      <Counter/>
       {/* <Routes>
         <Route path="/">
           <Route path="/about" element={<UseReducerHook />} />
