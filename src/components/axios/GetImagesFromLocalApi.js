@@ -1,3 +1,4 @@
+import { TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -27,7 +28,7 @@ function GetImagesFromLocalApi() {
     while (i < 2000000000) i++;
     return incrementOne % 2 === 0;
   }, [incrementOne]);
-  
+
   return (
     <div className="pt-16">
       <div className="flex space-x-10">
@@ -39,6 +40,16 @@ function GetImagesFromLocalApi() {
           CounterTwo - {incrementTwo}
         </button>
       </div>
+      <TextField
+        label="Pin Code"
+        onChange={(e) => {
+          axios
+            .get(`https://api.postalpincode.in/pincode/${e.target.value}`)
+            .then((response) => {
+              console.log("12345", response);
+            });
+        }}
+      />
       {isEven ? "Even" : "Odd"}
     </div>
   );

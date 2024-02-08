@@ -1,6 +1,5 @@
 import React from "react";
-import useForm from "./useForm"; // assuming you saved the hook in a file named useForm.js
-
+import useForm from "./UseForm"; 
 export const MyFormComponent = () => {
   const { formData, handleChange, resetForm } = useForm({
     username: "",

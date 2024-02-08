@@ -11,6 +11,8 @@ import ParentComponent from "./components/usecallback/ParentComponent";
 import GetImagesFromLocalApi from "./components/axios/GetImagesFromLocalApi";
 import UseReducerHook from "./components/hooks/UseReducerHook";
 import Counter from "./components/hooks/Counter";
+import { MyFormComponent } from "./components/customHook/MyFormComponent";
+import UseRefHook from "./components/hooks/UseRefHook";
 
 
 const cardInformation = [
@@ -49,8 +51,11 @@ function App() {
   return (
     <>
       <Navbar />
-      <UseReducerHook />
+      <UseRefHook />
+      <GetImagesFromLocalApi />
+      {/* <UseReducerHook />
       <Counter/>
+      <MyFormComponent /> */}
       {/* <Routes>
         <Route path="/">
           <Route path="/about" element={<UseReducerHook />} />
