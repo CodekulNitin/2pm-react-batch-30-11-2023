@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { createContext, useState } from "react";
 import { Route, Router, Routes } from "react-router-dom";
 import "./App.css";
 import HomePage from "./components/home/HomePage";
@@ -13,7 +13,7 @@ import UseReducerHook from "./components/hooks/UseReducerHook";
 import Counter from "./components/hooks/Counter";
 import { MyFormComponent } from "./components/customHook/MyFormComponent";
 import UseRefHook from "./components/hooks/UseRefHook";
-
+import UseContextHook from "./components/customHook/UseContextHook";
 
 const cardInformation = [
   {
@@ -45,14 +45,23 @@ const cardInformation = [
     info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
   },
 ];
+
+export const UserContext = React.createContext();
+export const ListContext = React.createContext();
 //https://templates.envytheme.com/tinzer/default/index-2.html
 function App() {
   const [text, setText] = useState("");
   return (
     <>
-      <Navbar />
-      <UseRefHook />
-      <GetImagesFromLocalApi />
+      <UserContext.Provider value={cardInformation}>
+        <ListContext.Provider value={cardInformation}>
+          <UseContextHook />
+        </ListContext.Provider>
+      </UserContext.Provider>
+      {/* <Navbar /> */}
+
+      {/* <UseRefHook />
+      <GetImagesFromLocalApi /> */}
       {/* <UseReducerHook />
       <Counter/>
       <MyFormComponent /> */}
